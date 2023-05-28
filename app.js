@@ -3,9 +3,16 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.send("Hello");
+  let today = new Date();
+  console.log(today.getDate());
+  if (today.getDate === 1) {
+    res.send("sunday");
+  } else {
+    res.sendFile(__dirname + "/index.html");
+  }
 });
 
 app.listen(process.env.PORT || 3000, () => {
